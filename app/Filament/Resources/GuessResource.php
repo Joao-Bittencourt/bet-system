@@ -34,7 +34,7 @@ class GuessResource extends Resource
 
                 Forms\Components\Select::make('created_by')
                     ->options([Auth::id() => Auth::user()->name])
-                    ->default('1')
+                    ->default(Auth::id())
                     ->required()
                     ->label('Palpitero'),
                 Forms\Components\TextInput::make('guess')
@@ -52,18 +52,24 @@ class GuessResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('guess')
+                    ->label('Palpite')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('value')
+                    ->label('Valor')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dt Cadastro')
+                    ->dateTime('d/m/Y h:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\ViewAction::make(),
             ]);
     }
 
@@ -87,4 +93,20 @@ class GuessResource extends Resource
     {
         return false;
     }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return in_array(Auth::id(), [$record->created_by, '1']);
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return in_array(Auth::id(), [$record->created_by, '1']);
+    }
+
 }

@@ -12,6 +12,8 @@ class ListGuesses extends ListRecords
 
     protected static ?string $title = 'Palpites';
 
+    protected static ?string $label = 'Palpites';
+
     protected static ?string $navigationLabel = 'Palpites';
 
     protected function getHeaderActions(): array
