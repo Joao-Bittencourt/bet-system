@@ -60,7 +60,7 @@ class GuessResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dt Cadastro')
-                    ->dateTime('d/m/Y h:i')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
