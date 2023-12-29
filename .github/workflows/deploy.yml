@@ -24,7 +24,7 @@ jobs:
       with:
         server: bet-system.x10.mx
         username: admin@bet-system.x10.mx
-        password: ${{ secrets.CPLL_PASS_FTP}}
+        password: ${{ secrets.PASS_FTP}}
         server-dir: ./public_html/
         exclude: |
           **/.git*
