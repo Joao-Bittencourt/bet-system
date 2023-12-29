@@ -19,7 +19,8 @@ class BetEvent extends Model
         'updated_at',
     ];
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'created_by');
     }
 }

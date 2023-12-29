@@ -47,11 +47,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function guesses(): HasMany {
+    public function guesses(): HasMany
+    {
         return $this->hasMany(Guess::class);
     }
-    
-    public function bet_events(): HasMany {
+
+    public function bet_events(): HasMany
+    {
         return $this->hasMany(BetEvent::class, 'created_by');
     }
 }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('guesses', function (Blueprint $table) {
             $table->id();
-            $table->string('guess');            
-            $table->integer('value')->default('200');            
+            $table->string('guess');
+            $table->integer('value')->default('200');
             $table->foreignIdFor(BetEvent::class);
             $table->foreignIdFor(User::class, 'created_by');
             $table->timestamps();

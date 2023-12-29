@@ -3,16 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BetEventResource\Pages;
-use App\Filament\Resources\BetEventResource\RelationManagers;
 use App\Models\BetEvent;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
 class BetEventResource extends Resource
@@ -23,7 +20,7 @@ class BetEventResource extends Resource
 
     public static function form(Form $form): Form
     {
-       
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -33,8 +30,8 @@ class BetEventResource extends Resource
                 Forms\Components\TextInput::make('created_by')
                     ->numeric()
                     ->default(Auth::id())
-                    ->required()
-                    
+                    ->required(),
+
             ]);
     }
 

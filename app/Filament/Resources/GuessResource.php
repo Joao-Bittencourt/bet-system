@@ -3,17 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GuessResource\Pages;
-use App\Filament\Resources\GuessResource\RelationManagers;
 use App\Models\Guess;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
 class GuessResource extends Resource
@@ -91,6 +87,4 @@ class GuessResource extends Resource
     {
         return false;
     }
-
-  
 }

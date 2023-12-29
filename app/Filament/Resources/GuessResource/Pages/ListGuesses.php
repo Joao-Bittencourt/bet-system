@@ -11,7 +11,7 @@ class ListGuesses extends ListRecords
     protected static string $resource = GuessResource::class;
 
     protected static ?string $title = 'Palpites';
-    
+
     protected static ?string $navigationLabel = 'Palpites';
 
     protected function getHeaderActions(): array
