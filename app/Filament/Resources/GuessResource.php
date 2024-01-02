@@ -55,9 +55,14 @@ class GuessResource extends Resource
                 Tables\Columns\TextColumn::make('guess')
                     ->label('Palpite')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('users.name')
+                    ->label('Palpitero')
+                    ->searchable(),
+                // ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('value')
                     ->label('Valor')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dt Cadastro')
                     ->dateTime('d/m/Y H:i')
@@ -108,5 +113,4 @@ class GuessResource extends Resource
     {
         return in_array(Auth::id(), [$record->created_by, '1']);
     }
-
 }
