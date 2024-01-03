@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(BetEventSeeder::class);
+        $this->call(GuessStatusSeeder::class);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\GuessStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guess_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('status');
-            $table->timestamps();
+        Schema::table('guesses', function (Blueprint $table) {
+            $table->foreignIdFor(GuessStatus::class);
         });
     }
 
@@ -23,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('guess_statuses');
+        Schema::table('guesses', function (Blueprint $table) {
+            $table->dropForeignIdFor(GuessStatus::class);
+        });
     }
 };

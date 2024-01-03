@@ -30,13 +30,15 @@ class GuessResource extends Resource
                     ->relationship('bet_events', 'name')
                     ->default('1')
                     ->required()
-                    ->label('Evento'),
+                    ->label('Evento')
+                    ->native(false),
 
                 Forms\Components\Select::make('created_by')
                     ->options([Auth::id() => Auth::user()->name])
                     ->default(Auth::id())
                     ->required()
-                    ->label('Palpitero'),
+                    ->label('Palpitero')
+                    ->native(false),
                 Forms\Components\TextInput::make('guess')
                     ->label('Palpite')
                     ->maxLength(255)
@@ -59,6 +61,16 @@ class GuessResource extends Resource
                     ->label('Palpitero')
                     ->searchable(),
                 // ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('guess_status.status')
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => __($state))
+                    ->color(fn (string $state): string => match ($state) {
+                        'created' => 'gray',
+                        'in_process' => 'warning',
+                        'paid' => 'success',
+                        'invalid' => 'danger',
+                    }),
                 Tables\Columns\TextColumn::make('value')
                     ->label('Valor')
                     ->searchable()

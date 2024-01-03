@@ -30,4 +30,9 @@ class Guess extends Model
     {
         return $this->belongsTo(BetEvent::class);
     }
+
+    public function guess_status(): BelongsTo
+    {
+        return $this->BelongsTo(GuessStatus::class);
+    }
 }
