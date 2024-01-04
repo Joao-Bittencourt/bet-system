@@ -24,10 +24,21 @@ class GuessResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $conditionalFieldToEdit = [];
+        if (Auth::id() == '1') {
+            $conditionalFieldToEdit = [
+                Forms\Components\Select::make('guess_status.id')
+                    ->relationship('guess_status', 'status')
+                    ->required()
+                    ->label('Palpite status')
+                    ->native(false),
+            ];
+        }
+
         return $form
-            ->schema([
+            ->schema(array_merge([
                 Forms\Components\Select::make('bet_event_id')
-                    ->relationship('bet_events', 'name')
+                    ->relationship('bet_event', 'name')
                     ->default('1')
                     ->required()
                     ->label('Evento')
@@ -47,7 +58,7 @@ class GuessResource extends Resource
                     ->label('Valor (R$)')
                     ->default('2.00')
                     ->readOnly(),
-            ]);
+            ], $conditionalFieldToEdit));
     }
 
     public static function table(Table $table): Table
@@ -118,7 +129,15 @@ class GuessResource extends Resource
 
     public static function canEdit(Model $record): bool
     {
-        return in_array(Auth::id(), [$record->created_by, '1']);
+
+        $loggedUserId = Auth::id();
+        if ($loggedUserId == '1') {
+            return true;
+        }
+
+        $inTimeToEdit = strtotime("{$record->getCreatedAtColumn()} + 1hour ") >= strtotime('now');
+
+        return $inTimeToEdit && $loggedUserId == $record->created_by;
     }
 
     public static function canView(Model $record): bool

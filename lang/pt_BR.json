@@ -2,5 +2,7 @@
     "created": "criado",
     "in_process": "em processamento",
     "invalid": "Invalido",
-    "paid": "pago"
+    "paid": "pago",
+
+    "Configurations" : "Configurações"
 }

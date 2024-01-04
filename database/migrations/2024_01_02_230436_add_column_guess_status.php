@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('guesses', function (Blueprint $table) {
-            $table->foreignIdFor(GuessStatus::class);
+            $table->foreignIdFor(GuessStatus::class)->default(0);
         });
     }
 

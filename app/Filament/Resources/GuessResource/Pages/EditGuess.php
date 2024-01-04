@@ -3,17 +3,14 @@
 namespace App\Filament\Resources\GuessResource\Pages;
 
 use App\Filament\Resources\GuessResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditGuess extends EditRecord
 {
     protected static string $resource = GuessResource::class;
 
-    protected function getHeaderActions(): array
+    protected function getRedirectUrl(): string
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return $this->getResource()::getUrl('index');
     }
 }

@@ -26,7 +26,7 @@ class Guess extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function bet_events(): BelongsTo
+    public function bet_event(): BelongsTo
     {
         return $this->belongsTo(BetEvent::class);
     }
