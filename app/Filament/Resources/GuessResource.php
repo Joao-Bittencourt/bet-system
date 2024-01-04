@@ -135,7 +135,7 @@ class GuessResource extends Resource
             return true;
         }
 
-        $inTimeToEdit = strtotime("{$record->getCreatedAtColumn()} + 1hour ") >= strtotime('now');
+        $inTimeToEdit = strtotime("{$record->created_at} + 1hour ") >= strtotime('now');
 
         return $inTimeToEdit && $loggedUserId == $record->created_by;
     }
@@ -143,5 +143,10 @@ class GuessResource extends Resource
     public static function canView(Model $record): bool
     {
         return in_array(Auth::id(), [$record->created_by, '1']);
+    }
+
+    public static function canViewAny(): bool
+    {
+        return true;
     }
 }

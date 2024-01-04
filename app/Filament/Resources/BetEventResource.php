@@ -33,7 +33,6 @@ class BetEventResource extends Resource
                     ->numeric()
                     ->default(Auth::id())
                     ->required(),
-
             ]);
     }
 
