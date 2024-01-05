@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
+use App\Filament\Resources\GuessResource\Widgets\CountTotalGuessesBetEventActiveWidget;
+use App\Filament\Resources\GuessResource\Widgets\CurrentBetEventActiveWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -39,6 +41,8 @@ class AppPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+                CountTotalGuessesBetEventActiveWidget::class,
+                CurrentBetEventActiveWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -18,6 +18,8 @@ class BetEventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-check-badge';
 
+    protected static ?string $modelLabel = 'Evento';
+
     public static function form(Form $form): Form
     {
 
@@ -31,7 +33,6 @@ class BetEventResource extends Resource
                     ->numeric()
                     ->default(Auth::id())
                     ->required(),
-
             ]);
     }
 
@@ -39,18 +40,13 @@ class BetEventResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
-            ->filters([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Evento')
+                    ->sortable(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

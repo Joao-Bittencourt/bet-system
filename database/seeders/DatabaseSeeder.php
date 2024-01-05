@@ -12,12 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
         ]);
 
-       $this->call(BetEventSeeder::class);
+        $this->call(BetEventSeeder::class);
+        $this->call(GuessStatusSeeder::class);
     }
 }

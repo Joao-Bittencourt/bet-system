@@ -24,19 +24,32 @@ class GuessResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $conditionalFieldToEdit = [];
+        if (Auth::id() == '1') {
+            $conditionalFieldToEdit = [
+                Forms\Components\Select::make('guess_status.id')
+                    ->relationship('guess_status', 'status')
+                    ->required()
+                    ->label('Palpite status')
+                    ->native(false),
+            ];
+        }
+
         return $form
-            ->schema([
+            ->schema(array_merge([
                 Forms\Components\Select::make('bet_event_id')
-                    ->relationship('bet_events', 'name')
+                    ->relationship('bet_event', 'name')
                     ->default('1')
                     ->required()
-                    ->label('Evento'),
+                    ->label('Evento')
+                    ->native(false),
 
                 Forms\Components\Select::make('created_by')
                     ->options([Auth::id() => Auth::user()->name])
                     ->default(Auth::id())
                     ->required()
-                    ->label('Palpitero'),
+                    ->label('Palpitero')
+                    ->native(false),
                 Forms\Components\TextInput::make('guess')
                     ->label('Palpite')
                     ->maxLength(255)
@@ -45,7 +58,7 @@ class GuessResource extends Resource
                     ->label('Valor (R$)')
                     ->default('2.00')
                     ->readOnly(),
-            ]);
+            ], $conditionalFieldToEdit));
     }
 
     public static function table(Table $table): Table
@@ -55,12 +68,27 @@ class GuessResource extends Resource
                 Tables\Columns\TextColumn::make('guess')
                     ->label('Palpite')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('users.name')
+                    ->label('Palpitero')
+                    ->searchable(),
+                // ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('guess_status.status')
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => __($state))
+                    ->color(fn (string $state): string => match ($state) {
+                        'created' => 'gray',
+                        'in_process' => 'warning',
+                        'paid' => 'success',
+                        'invalid' => 'danger',
+                    }),
                 Tables\Columns\TextColumn::make('value')
                     ->label('Valor')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dt Cadastro')
-                    ->dateTime('d/m/Y h:i')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
@@ -101,7 +129,15 @@ class GuessResource extends Resource
 
     public static function canEdit(Model $record): bool
     {
-        return in_array(Auth::id(), [$record->created_by, '1']);
+
+        $loggedUserId = Auth::id();
+        if ($loggedUserId == '1') {
+            return true;
+        }
+
+        $inTimeToEdit = strtotime("{$record->created_at} + 1hour ") >= strtotime('now');
+
+        return $inTimeToEdit && $loggedUserId == $record->created_by;
     }
 
     public static function canView(Model $record): bool
@@ -109,4 +145,8 @@ class GuessResource extends Resource
         return in_array(Auth::id(), [$record->created_by, '1']);
     }
 
+    public static function canViewAny(): bool
+    {
+        return true;
+    }
 }

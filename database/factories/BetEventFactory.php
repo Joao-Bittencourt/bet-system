@@ -18,7 +18,7 @@ class BetEventFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'created_by' => 1
+            'created_by' => 1,
         ];
     }
 }
