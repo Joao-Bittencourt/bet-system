@@ -23,7 +23,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: bet-system.x10.mx
-        username: ${{ secrets.USER_FTP}
+        username: ${{ secrets.USER_FTP}}
         password: ${{ secrets.PASS_FTP}}
         server-dir: ./public_html/
         exclude: |
