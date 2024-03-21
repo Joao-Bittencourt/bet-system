@@ -6,11 +6,11 @@ Sistema de registro de palpites para computar apostas em eventos especificos.
 
 
 #### Funcionalidades:
-- Cadastro de Usuarios
-- Cadastro de Eventos
-- Cadastro de palpites
-- Cadstro de situaçoes do palpite
-- Controle da situação de cada palpite
+[x] Cadastro de Usuarios
+[x] Cadastro de Eventos
+[x] Cadastro de palpites
+[x] Cadstro de situaçoes do palpite
+[x] Controle da situação de cada palpite
 
 
 #### em desenvolvimento:
